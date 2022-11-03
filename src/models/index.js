@@ -14,6 +14,7 @@ const knex = require('knex')({
 const bookshelf = require('bookshelf')(knex)
 
 const models = {}
+models.Posts = require('./Posts')(bookshelf)
 
 module.exports = {
 	bookshelf,
