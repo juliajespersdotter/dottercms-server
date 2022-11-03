@@ -23,10 +23,7 @@ const showPost = async (req, res) => {
 
 	const post = await models.Posts.fetchById(postId)
 
-	res.send({
-		status: 'success',
-		data: post,
-	})
+	res.send(post)
 }
 
 /**
