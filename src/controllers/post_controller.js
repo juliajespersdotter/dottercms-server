@@ -14,13 +14,27 @@ const show = async (req, res) => {
 }
 
 /**
+ * Get a specific resource
+ *
+ * GET /:postId
+ */
+const showPost = async (req, res) => {
+	const postId = req.params.postId
+
+	const post = await models.Posts.fetchById(postId)
+
+	res.send({
+		status: 'success',
+		data: post,
+	})
+}
+
+/**
  * publish new resource
  *
  * POST /publish
  */
 const publish = async (req, res) => {
-	console.log('req', req)
-	debug('Request incoming', req)
 	// check for errors
 	const errors = validationResult(req)
 	if (!errors.isEmpty()) {
@@ -47,7 +61,40 @@ const publish = async (req, res) => {
 	}
 }
 
+const edit = async (req, res) => {
+	const postId = req.params.postId
+
+	const post = await models.Posts.fetchById(postId)
+
+	// check for errors
+	const errors = validationResult(req)
+	if (!errors.isEmpty()) {
+		return res.status(422).send({ status: 'fail', data: errors.array() })
+	}
+
+	// get valid data
+	const validData = matchedData(req)
+
+	try {
+		const editedPost = await post.save(validData)
+
+		debug('Updated post successfully: %0', editedPost)
+		res.send({
+			status: 'success',
+			data: editedPost,
+		})
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exception thrown when attempting to publish post',
+		})
+		throw error
+	}
+}
+
 module.exports = {
 	show,
+	showPost,
 	publish,
+	edit,
 }
