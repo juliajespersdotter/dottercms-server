@@ -1,4 +1,4 @@
-const debug = require('debug')('dotter_cms:post_controller')
+const debug = require('debug')('dottercms:post_controller')
 const { matchedData, validationResult } = require('express-validator')
 const models = require('../models')
 

@@ -13,7 +13,7 @@ const createRules = [
 const updateRules = [
 	body('title').exists().isLength({ min: 3 }).trim(),
 	body('content').exists().isLength({ min: 3 }).trim(),
-	body('created_at').exists(),
+	body('updated_at').exists(),
 ]
 
 module.exports = {
