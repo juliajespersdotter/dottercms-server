@@ -15,4 +15,7 @@ router.post('/publish', postValidationRules.createRules, postController.publish)
 /* Update a specific resource */
 router.put('/:postId', postValidationRules.updateRules, postController.edit)
 
+/* Update a specific resource */
+router.delete('/:postId', postController.destroy)
+
 module.exports = router

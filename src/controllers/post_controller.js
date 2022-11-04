@@ -89,9 +89,41 @@ const edit = async (req, res) => {
 	}
 }
 
+const destroy = async (req, res) => {
+	const postId = req.params.postId
+
+	const post = await models.Posts.fetchById(postId)
+
+	if (!post) {
+		debug('Post does not exist. %O', { id: postId })
+		return res.status(404).send({
+			status: 'fail',
+			data: 'Post does not exist.',
+		})
+	}
+
+	try {
+		// destroy photo with id from req
+		await new models.Posts({ id: postId }).destroy()
+
+		debug('Deleted post successfully: %0', res)
+		res.send({
+			status: 'success',
+			data: null,
+		})
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exception thrown when attempting to delete post',
+		})
+		throw error
+	}
+}
+
 module.exports = {
 	show,
 	showPost,
 	publish,
 	edit,
+	destroy,
 }
