@@ -4,7 +4,7 @@ const postController = require('../controllers/post_controller')
 const postValidationRules = require('../validation/post')
 
 /* Get all resources */
-router.get('/posts', postController.show)
+router.get('/', postController.show)
 
 /* Get a specific resource */
 router.get('/:postId', postController.showPost)

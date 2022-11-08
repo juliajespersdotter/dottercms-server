@@ -47,6 +47,9 @@ const login = async (req, res) => {
 	return res.send({
 		status: 'success',
 		data: {
+			user_id: user.get('id'),
+			email: user.get('email'),
+			name: user.get('name'),
 			access_token,
 			refresh_token,
 		},

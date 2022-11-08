@@ -16,4 +16,9 @@ router.post(
 	authController.register
 )
 
+/* Register a new user */
+router.post('/login', userValidationRules.loginRules, authController.login)
+
+router.use('/posts', require('./posts'))
+
 module.exports = router
