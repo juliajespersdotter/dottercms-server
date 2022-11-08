@@ -15,6 +15,7 @@ const bookshelf = require('bookshelf')(knex)
 
 const models = {}
 models.Posts = require('./Posts')(bookshelf)
+models.User = require('./User')(bookshelf)
 
 module.exports = {
 	bookshelf,

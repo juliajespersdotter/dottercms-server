@@ -8,10 +8,7 @@ module.exports = bookshelf => {
 	return bookshelf.model(
 		'User',
 		{
-			tablename: 'users',
-			posts() {
-				return this.hasMany('Posts')
-			},
+			tableName: 'users',
 		},
 		{
 			async login(email, password) {

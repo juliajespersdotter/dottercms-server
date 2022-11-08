@@ -1,21 +1,19 @@
 const express = require('express')
 const router = express.Router()
-const postController = require('../controllers/post_controller')
-const postValidationRules = require('../validation/post')
+const auth = require('../middlewares/auth')
+const authController = require('../controllers/auth_controller')
+const userValidationRules = require('../validation/user')
 
-/* Get all resources */
-router.get('/posts', postController.show)
+router.get('/'),
+	(req, res, next) => {
+		res.send({ success: true, data: { msg: 'We are up and running!' } })
+	}
 
-/* Get a specific resource */
-router.get('/:postId', postController.showPost)
-
-/* Store a new resource */
-router.post('/publish', postValidationRules.createRules, postController.publish)
-
-/* Update a specific resource */
-router.put('/:postId', postValidationRules.updateRules, postController.edit)
-
-/* Update a specific resource */
-router.delete('/:postId', postController.destroy)
+/* Register a new user */
+router.post(
+	'/register',
+	userValidationRules.createRules,
+	authController.register
+)
 
 module.exports = router

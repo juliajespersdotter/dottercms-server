@@ -2,7 +2,7 @@
  * Auth Controller
  */
 
-const debug = require('debug')('dottercms:post_controller')
+const debug = require('debug')('dottercms:auth_controller')
 const { matchedData, validationResult } = require('express-validator')
 const models = require('../models')
 const bcrypt = require('bcrypt')
@@ -31,7 +31,7 @@ const login = async (req, res) => {
 	const payload = {
 		sub: user.get('email'),
 		user_id: user.get('id'),
-		name: user.get('first_name') + '.' + user.get('last_name'),
+		name: user.get('name'),
 	}
 
 	// sign payload and get access token
@@ -90,8 +90,7 @@ const register = async (req, res) => {
 			status: 'success',
 			data: {
 				email: validData.email,
-				first_name: validData.first_name,
-				last_name: validData.last_name,
+				name: validData.name,
 			},
 		})
 	} catch (error) {
